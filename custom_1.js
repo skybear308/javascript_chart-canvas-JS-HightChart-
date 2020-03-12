@@ -17,7 +17,7 @@ $("#overview_histogram").click(function(){
 
     $.get(dataUrl,function(data){
         var result = JSON.parse(data);
-        console.log(result);
+        
         var chart = new CanvasJS.Chart("chartContainer_bar", {
             width:550,
             height:300,
@@ -224,7 +224,7 @@ $('#showmileage').click(function(){
 
         var chart = new CanvasJS.Chart("mileage_graph_chart", {
             animationEnabled: true,
-            width:500,
+            width:650,
             height:300,
             
             theme:"light1",
@@ -252,6 +252,7 @@ $('#showmileage').click(function(){
             data: [   
                 {
                     type: "scatter",
+                    color: "#d7e1fe",
                     dataPoints: result.scatter
                 }
             ]
@@ -264,15 +265,225 @@ $('#showmileage').click(function(){
         function calculateLine(chart) {
             
             chart.addTo("data",{
-                type: "line", //Line series showing trend
+                type: "spline", //Line series showing trend
                 markerSize: 0,
                 lineThickness: 4,
                 highlightEnabled: false,
                 toolTipContent: null,
-                dataPoints: [result.spline['start_point'], result.spline['end_point']]
+                dataPoints: [result.spline['start_point'], result.spline['middle_point'], result.spline['end_point']]
+                // dataPoints:[
+                //     {x: 11790, y: 46501, lineColor: '#289afd'},
+                //     {x: 118326, y: 23076, lineColor: '#289afd'},
+                //     {x: 230141, y: 16243, lineColor: '#289afd'}
+                // ]
             });
 
         }
+
+    });
+    
+});
+
+$('#showovertime').click(function(){
+    
+    var dataUrl = ''
+    
+    // if (vin != '') {
+    //     dataUrl = 'new_getmarketvalue.php?key='+encodeURIComponent(key)+'&vin='+encodeURIComponent(vin)+'&period='+encodeURIComponent(period)+'&mileage='+encodeURIComponent(mileage)+'&country='+country+'&status=overview';
+        
+    // } else {
+    //     dataUrl = 'new_getmarketvalue.php?key='+encodeURIComponent(key)+'&year='+encodeURIComponent(year)+'&make='+encodeURIComponent(make)+'&model='+encodeURIComponent(model)+'&trim='+encodeURIComponent(trim)+'&period='+encodeURIComponent(period)+'&mileage='+encodeURIComponent(mileage)+'&country='+country+'&status=overview';
+    // }
+    var vin = $('#vin').val();
+    // var period = $('#va_mv_timeperiod_select').val();
+    var mileage = $('#va_mv_mileage_text_dd').val();
+    var zipcode = '';
+
+    dataUrl = 'new_getmarketvalue.php?status=overtime&mileage=' + mileage + '&vin=' + vin + '&zipcode=' + zipcode;
+
+    $.get(dataUrl,function(res) {
+
+        // var result = JSON.parse(res);
+
+        var vehicle = '2005 Toyota Corolla CE';
+
+        var chart = new CanvasJS.Chart("overtime_graph_chart", {
+            theme:"light2",
+            width:650,
+            // height:300,
+            animationEnabled: true,
+            title:{
+                text: ""
+            },
+            axisY:{
+                tickThickness: 0,
+                gridThickness: 0,
+                lineThickness: 2,
+                title: "Price(in thousands of USD)",
+                labelFormatter: function(e){
+                    return "";
+                }
+            },
+            axisX: {
+                tickThickness: 0,
+                lineThickness: 2,
+                title: ""
+            },
+            toolTip: {
+                shared: "true"
+            },
+            legend:{
+                cursor:"pointer"
+            },
+            data: [{
+                yValueFormatString: "#,### Units",
+                xValueFormatString: "YYYY",
+                lineColor: "#a0a0a0",
+                showInLegend: true,
+                name: "Estimated Market Price for mileage and location",
+                type: "spline",
+                color: "#a0a0a0",
+                dataPoints: [
+                    {x: new Date(2002, 0), y: 7289000, toolTipContent: 'asdfasdf'},
+                    {x: new Date(2002, 1), y: 7189000},
+                    {x: new Date(2002, 2), y: 7089000},
+                    {x: new Date(2002, 3), y: 6989000},
+                    {x: new Date(2002, 4), y: 6889000},
+                    {x: new Date(2002, 5), y: 6789000},
+                    {x: new Date(2002, 6), y: 6689000},
+                    {x: new Date(2002, 7), y: 6589000},
+                    {x: new Date(2002, 8), y: 6489000},
+                    {x: new Date(2002, 9), y: 6389000},
+                    {x: new Date(2002, 10), y: 6289000},
+                    {x: new Date(2002, 11), y: 6189000},
+                    {x: new Date(2002, 12), y: 6089000},
+                    {x: new Date(2003, 1), y: 5989000},
+                    {x: new Date(2003, 2), y: 5889000},
+                    {x: new Date(2003, 3), y: 5789000},
+                    {x: new Date(2003, 4), y: 5689000},
+                    {x: new Date(2003, 5), y: 5589000},
+                    {x: new Date(2003, 6), y: 5489000},
+                    {x: new Date(2003, 7), y: 5389000},
+                    {x: new Date(2003, 8), y: 5289000},
+                    {x: new Date(2003, 9), y: 5189000},
+                    {x: new Date(2003, 10), y: 5089000},
+                    {x: new Date(2003, 11), y: 4989000},
+                    {x: new Date(2003, 12), y: 4889000},
+                    {x: new Date(2004, 1), y: 4789000},
+                    {x: new Date(2004, 2), y: 4989000},
+                    {x: new Date(2004, 3), y: 4989000},
+                    {x: new Date(2004, 4), y: 4989000},
+                    {x: new Date(2004, 5), y: 4989000},
+                    {x: new Date(2004, 6), y: 4989000},
+                    {x: new Date(2004, 7), y: 4989000},
+                    {x: new Date(2004, 8), y: 4989000},
+                    {x: new Date(2004, 9), y: 7289000},
+                    {x: new Date(2004, 10), y: 4830000},
+                    {x: new Date(2004, 11), y: 2009000},
+                    {x: new Date(2004, 12), y: 2840000},
+                    {x: new Date(2005, 1), y: 2506000},
+                    {x: new Date(2005, 2), y: 2798000},
+                    {x: new Date(2005, 3), y: 3386000},
+                    {x: new Date(2005, 4), y: 6944000},
+                    {x: new Date(2005, 5), y: 6026000},
+                    {x: new Date(2005, 6), y: 2394000},
+                    {x: new Date(2005, 7), y: 1872000},
+                    {x: new Date(2005, 8), y: 2140000},
+                    {x: new Date(2005, 9), y: 7289000},
+                    {x: new Date(2005, 10), y: 4830000},
+                    {x: new Date(2005, 11), y: 2009000},
+                    {x: new Date(2005, 12), y: 2840000},
+                    {x: new Date(2006, 1), y: 2506000},
+                    {x: new Date(2006, 2), y: 2798000},
+                    {x: new Date(2006, 3), y: 3386000},
+                    {x: new Date(2006, 4), y: 6944000},
+                    {x: new Date(2006, 5), y: 6026000},
+                    {x: new Date(2006, 6), y: 2394000},
+                    {x: new Date(2006, 7), y: 1872000},
+                    {x: new Date(2006, 8), y: 2140000},
+                    {x: new Date(2006, 9), y: 7289000},
+                    {x: new Date(2006, 10), y: 4830000},
+                    {x: new Date(2006, 11), y: 2009000},
+                    {x: new Date(2006, 12), y: 2840000}
+                ]
+            },
+            {
+                yValueFormatString: "#,### Units",
+                xValueFormatString: "YYYY",
+                type: "spline",
+                showInLegend: true,
+                name: "Average Market Price for " + vehicle,
+                lineColor: "#082dfc",
+                color: "#082dfc",
+                highlightEnabled: false,
+                toolTipContent: null,
+                dataPoints: [
+                    {x: new Date(2002, 0), y: 2506000},
+                    {x: new Date(2002, 1), y: 2506000},
+                    {x: new Date(2002, 2), y: 2798000},
+                    {x: new Date(2002, 3), y: 3386000},
+                    {x: new Date(2002, 4), y: 6944000},
+                    {x: new Date(2002, 5), y: 6026000},
+                    {x: new Date(2002, 6), y: 2394000},
+                    {x: new Date(2002, 7), y: 1872000},
+                    {x: new Date(2002, 8), y: 2140000},
+                    {x: new Date(2002, 9), y: 7289000},
+                    {x: new Date(2002, 10), y: 4830000},
+                    {x: new Date(2002, 11), y: 2009000},
+                    {x: new Date(2002, 12), y: 2840000},
+                    {x: new Date(2003, 1), y: 2506000},
+                    {x: new Date(2003, 2), y: 2798000},
+                    {x: new Date(2003, 3), y: 3386000},
+                    {x: new Date(2003, 4), y: 6944000},
+                    {x: new Date(2003, 5), y: 6026000},
+                    {x: new Date(2003, 6), y: 2394000},
+                    {x: new Date(2003, 7), y: 1872000},
+                    {x: new Date(2003, 8), y: 2140000},
+                    {x: new Date(2003, 9), y: 7289000},
+                    {x: new Date(2003, 10), y: 4830000},
+                    {x: new Date(2003, 11), y: 2009000},
+                    {x: new Date(2003, 12), y: 2840000},
+                    {x: new Date(2004, 1), y: 2506000},
+                    {x: new Date(2004, 2), y: 2798000},
+                    {x: new Date(2004, 3), y: 3386000},
+                    {x: new Date(2004, 4), y: 6944000},
+                    {x: new Date(2004, 5), y: 6026000},
+                    {x: new Date(2004, 6), y: 2394000},
+                    {x: new Date(2004, 7), y: 1872000},
+                    {x: new Date(2004, 8), y: 2140000},
+                    {x: new Date(2004, 9), y: 7289000},
+                    {x: new Date(2004, 10), y: 4830000},
+                    {x: new Date(2004, 11), y: 2009000},
+                    {x: new Date(2004, 12), y: 2840000},
+                    {x: new Date(2005, 1), y: 2506000},
+                    {x: new Date(2005, 2), y: 2798000},
+                    {x: new Date(2005, 3), y: 3386000},
+                    {x: new Date(2005, 4), y: 6944000},
+                    {x: new Date(2005, 5), y: 6026000},
+                    {x: new Date(2005, 6), y: 2394000},
+                    {x: new Date(2005, 7), y: 1872000},
+                    {x: new Date(2005, 8), y: 2140000},
+                    {x: new Date(2005, 9), y: 7289000},
+                    {x: new Date(2005, 10), y: 4830000},
+                    {x: new Date(2005, 11), y: 2009000},
+                    {x: new Date(2005, 12), y: 2840000},
+                    {x: new Date(2006, 1), y: 2506000},
+                    {x: new Date(2006, 2), y: 2798000},
+                    {x: new Date(2006, 3), y: 3386000},
+                    {x: new Date(2006, 4), y: 6944000},
+                    {x: new Date(2006, 5), y: 6026000},
+                    {x: new Date(2006, 6), y: 2394000},
+                    {x: new Date(2006, 7), y: 1872000},
+                    {x: new Date(2006, 8), y: 2140000},
+                    {x: new Date(2006, 9), y: 7289000},
+                    {x: new Date(2006, 10), y: 4830000},
+                    {x: new Date(2006, 11), y: 2009000},
+                    {x: new Date(2006, 12), y: 2840000}
+                ]
+            }]
+        });
+
+        chart.render();
 
     });
     

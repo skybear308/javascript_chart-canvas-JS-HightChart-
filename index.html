@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>VinAudit API 2.0</title>
+        <link href="bootstrap.css" rel="stylesheet" type="text/css">
+        <!-- <link rel="stylesheet" type="text/css" href="common.css"> -->
+        <link rel="stylesheet" type="text/css" href="custom_1.css">
+
+        <script>
+            
+            function loadWidget() {
+                VinAudit.MarketValueWidget.render({
+                    key: 'VA_DEMO_KEY',
+                    vin: document.getElementById('vin').value,
+                    period: document.getElementById('va_mv_timeperiod_select').value,
+                    mileage: document.getElementById('va_mv_mileage_text_dd').value
+                });
+            }
+
+        </script>    
+
+    </head>
+    <body onload="loadWidget()">
+        <center>
+            <!-- VIN input div -->
+            <div class='vin_input'>
+                <!-- <div class="col-sm-12" style="margin: 20px 0;"> -->
+                    <div class="text-center" style="font-weight: bold">
+                        <label for="input-group" style="float: left; line-height: 32px;">VIN:</label>
+                        <div class="input-group" style="padding-left: 20px;"> 
+                            <input id="vin" type="text" class="form-control" name="vin" value="1NXBR32E85Z505904" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default"  onclick="loadWidget()">
+                                LOAD
+                                </button>
+                            </div>
+                        </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+
+            <!-- chart div -->
+            <!-- <script src="//www.vinaudit.com/widgets/marketvalue.js"></script> -->
+            <script src="marketvalue.js"></script>
+
+            <div class="demo_mv_wrapper">
+                <!-- vehicle title  -->
+                <div class='vehicle_title'>
+                    <div id="va_mv_title_text" style="font-size:18px; font-weight: bold; margin-bottom:17px;">Market Value for <span id="va_mv_vehicle1_text"></span></div>
+                </div>
+                <!-- Mileage, Location  -->
+                <div class='mileage_location'>
+                    (Mileage: 
+                    <span id="va_mv_mileage_content" style="display: none;">
+                        <span id="va_mv_mileage_text"></span>
+                        <select id="va_mv_mileage_text_dd" style="display:none"></select> 
+                        <span id="va_mv_mileage_avg_text" style="display:none;"></span>
+                    </span>
+                    
+                    Location: 
+                    <!-- <span id="va_mv_location_content" style="display: none"> -->
+                        <span id="va_mv_location_text">Unknown</span>
+                        <select id="va_mv_location_text_dd" style="display:none">
+                            <option value='Unknown' selected>Unknown</option>
+                            <option value='AL' selected>AL</option>
+                            <option value='AK' selected>AK</option>
+                            <option value='AZ' selected>AZ</option>
+                            <option value='AR' selected>AR</option>
+                            <option value='CA' selected>CA</option>
+                            <option value='CO' selected>CO</option>
+                            <option value='CT' selected>CT</option>
+                            <option value='DC' selected>DC</option>
+                            <option value='DE' selected>DE</option>
+                            <option value='FL' selected>FL</option>
+                            <option value='GA' selected>GA</option>
+                            <option value='HI' selected>HI</option>
+                            <option value='ID' selected>ID</option>
+                            <option value='IL' selected>IL</option>
+                            <option value='IN' selected>IN</option>
+                            <option value='IA' selected>IA</option>
+                            <option value='KS' selected>KS</option>
+                            <option value='KY' selected>KY</option>
+                            <option value='LA' selected>LA</option>
+                            <option value='ME' selected>ME</option>
+                            <option value='MD' selected>MD</option>
+                            <option value='MA' selected>MA</option>
+                            <option value='MI' selected>MI</option>
+                            <option value='MN' selected>MN</option>
+                            <option value='MS' selected>MS</option>
+                            <option value='MO' selected>MO</option>
+                            <option value='MT' selected>MT</option>
+                            <option value='NE' selected>NE</option>
+                            <option value='NV' selected>NV</option>
+                            <option value='NH' selected>NH</option>
+                            <option value='NJ' selected>NJ</option>
+                            <option value='NM' selected>NM</option>
+                            <option value='NY' selected>NY</option>
+                            <option value='NC' selected>NC</option>
+                            <option value='ND' selected>ND</option>
+                            <option value='OH' selected>OH</option>
+                            <option value='OK' selected>OK</option>
+                            <option value='OR' selected>OR</option>
+                            <option value='PA' selected>PA</option>
+                            <option value='RI' selected>RI</option>
+                            <option value='SC' selected>SC</option>
+                            <option value='SD' selected>SD</option>
+                            <option value='TN' selected>TN</option>
+                            <option value='TX' selected>TX</option>
+                            <option value='UT' selected>UT</option>
+                            <option value='VT' selected>VT</option>
+                            <option value='VA' selected>VA</option>
+                            <option value='WA' selected>WA</option>
+                            <option value='WV' selected>WV</option>
+                            <option value='WI' selected>WI</option>
+                            <option value='WY' selected>WY</option>
+                        </select> 
+                        <!-- <span id="va_mv_mileage_avg_text" style="display:none;"></span> -->
+                    <!-- </span> -->
+                    )
+                </div>
+
+                <ul class="nav nav-tabs nav-title">
+                    <li class="active">
+                        <a href="#tab_1_1" data-toggle="tab" aria-expanded="true">
+                        Overview </a>
+                    </li>
+                    <li>
+                        <a href="#tab_1_2" data-toggle="tab" id="showmileage" aria-expanded="true">
+                        By Mileage </a>
+                    </li>
+                    <li>
+                        <a href="#tab_1_3" data-toggle="tab" id="showlocation" aria-expanded="true">
+                        By Location </a>
+                    </li>
+                    <li>
+                        <a href="#tab_1_4" data-toggle="tab" id="showovertime" aria-expanded="true">
+                        Over Time </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- Overview -->
+                    <div class="tab-pane fade active in" id="tab_1_1" style="padding: 10px;">
+                        <!-- Graph | Histogram | Table -->
+                        <div class="overview-right">
+                            <ul class="nav nav-pills">
+                                <a href="#overview_graph_chart" data-toggle="tab">Graph </a>|
+                                <a href="#overview_histogram_chart" data-toggle="tab" id="overview_histogram"> Histogram </a>|
+                                <a href="#overview_table" data-toggle="tab" id="showbar"> Table </a>
+                            </ul>
+                        </div>
+                        <!-- Graph, Histogram, Table of Overview Tab -->
+                        <div class="tab-content">
+                            <!-- Graph Chart of Overview Tab -->
+                            <div id="overview_graph_chart" class="tab-pane active fade in"> 
+                                <script>
+                                    document.write(VinAudit.MarketValueWidget.getHtml());
+                                </script>
+                            </div>
+
+                            <!-- Histogram Chart of Overview Tab -->
+                            <div id="overview_histogram_chart" class="tab-pane" style="height: 349px;">
+                                <div class="clear_height_30"></div>
+                                <div id="chartContainer_bar" style="width: 100%;"></div>
+                            </div>
+                            
+                            <!-- Table of Overview Tab -->
+
+                        </div>
+                    </div>
+
+                    <!-- By Mileage -->
+                    <div class="tab-pane p-3" id="tab_1_2" style="padding:10px;">
+                        <!-- Graph | Table -->
+                        <div class="overview-right">
+                            <ul class="nav nav-pills">
+                                <a href="#mileage_graph_chart" data-toggle="tab">Graph </a>|
+                                <a href="#mileage_table" data-toggle="tab"> Table </a>
+                            </ul>
+                        </div> 
+
+                        <!-- Graph chart of By Mileage Tab -->
+                        <div id="mileage_graph_chart"></div>
+                    </div>
+
+                    <!-- By Location -->
+                    <div class="tab-pane" id="tab_1_3" style="padding:10px;">
+                        <!-- Graph | Table -->
+                        <div class="overview-right">
+                            <ul class="nav nav-pills">
+                                <a href="#location_graph_chart" data-toggle="tab">Graph </a>|
+                                <a href="#location_table" data-toggle="tab"> Table </a>
+                            </ul>
+                        </div>
+
+                        <!-- Graph chart of By Location Tab -->
+                        <div id="location_graph_chart"></div>
+
+                        <!-- Table of By Location Tab -->
+
+                    </div>
+
+                    <!-- Over Time -->
+                    <div class="tab-pane" id="tab_1_4" style="padding:10px;">
+                        <!-- Graph | Table -->
+                        <div class="overview-right">
+                            <ul class="nav nav-pills">
+                                <a href="#overtime_graph_chart" data-toggle="tab">Graph </a>|
+                                <a href="#overtime_table" data-toggle="tab"> Table </a>
+                            </ul>
+                        </div>
+
+                        <!-- Graph chart of Over Time Tab -->
+                        <div id="overtime_graph_chart"></div>
+
+                        <!-- Table of Over Time Tab -->
+
+                    </div>
+                </div>
+                <div id="va_mv_statement"><p id="va_mv_summary"></p></div>
+                <div id="va_mv_footer">
+                    <div id="va_mv_assumptions" class="va_mv_footer_block">
+                        <h2>ESTIMATES</h2>Time Period: Past 
+                        <span id="va_mv_timeperiod">6 months</span>
+                        <select id="va_mv_timeperiod_select" style="display:none">
+                            <option value="91" selected>3 months</option>
+                            <option value="182" selected>6 months</option>
+                        </select><br>Sample Size: 
+                        <b id="similar_vehicle_count"></b> similar vehicles sold 
+                    </div>
+                    <div id="va_mv_powered" class="va_mv_footer_block">
+                        <h2>POWERED BY</h2>
+                        <img src="//www.vinaudit.com/widgets/images/logo.png" width=110 height=36>
+                    </div>
+                    <div id="va_mv_estimates" class="va_mv_footer_block">
+                        <div class="clear_height_20"></div>
+                        Market Value: 
+                        <span id="va_mv_marketvalue_text"></span>
+                        <br>Estimate Certainty: 
+                        <span id="va_mv_certainty_text"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            
+            <div style="clear:both"></div>
+            <!-- </div> -->
+        <!-- </div> -->
+        </center>
+    <script src="http://randomvin.com/getvin.php?type=real&amp;var=RANDOM_VIN"></script>
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script src="bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://www.vinaudit.com/widgets/libs/chart.js-1.0.2-h_min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script> -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
+    <script src="jquery.canvasjs.js"></script>
+    <!-- <script src="https://code.highcharts.com/maps/highmaps.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/maps/modules/map.js"></script>
+<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+<script src="https://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+   
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+    <script src="custom_1.js"></script>
+
+    <!-- <script src="common.js"></script> -->
+
+    
+
+
+    </body>
+    
+</html>
